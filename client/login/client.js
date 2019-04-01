@@ -76,6 +76,29 @@ const SignupWindow = (props) => {
     );
 };
 
+const AboutWindow = () => {
+    return(
+        <div id = "wrapper">
+        <div id="sideContent">
+            <h2>About This Project</h2>
+            <h4>This is a brief description of my next project</h4>
+            <p>This is a static page that will eventually detail 
+                my project and the process I took to complete it
+            </p>
+            <p>Here I'll outline how I did the project, what challenges and problems I faced
+                and how I went about solving them. <br></br>I'll also likely throw a prototype image in 
+                to show how progress developed.
+            </p>
+            <ul>
+                <li>Example Step One</li>
+                <li>Example Step Two</li>
+                <li>I'll also be using either Bootstrap or Bulma for styling, and SASS so I don't hate myself</li>
+            </ul>
+        </div>
+        </div>
+    );
+};
+
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
@@ -90,9 +113,17 @@ const createSignupWindow = (csrf) => {
     );
 };
 
+const createAboutWindow = () => {
+    ReactDOM.render(
+        <AboutWindow />,
+        document.querySelector("#content")
+    );
+};
+
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
+    const aboutButton = document.querySelector("#aboutButton");
 
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -103,6 +134,12 @@ const setup = (csrf) => {
     loginButton.addEventListener("click", (e) => {
         e.preventDefault();
         createLoginWindow(csrf);
+        return false;
+    });
+
+    aboutButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createAboutWindow();
         return false;
     });
 

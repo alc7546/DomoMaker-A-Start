@@ -97,6 +97,58 @@ var SignupWindow = function SignupWindow(props) {
     );
 };
 
+var AboutWindow = function AboutWindow() {
+    return React.createElement(
+        "div",
+        { id: "wrapper" },
+        React.createElement(
+            "div",
+            { id: "sideContent" },
+            React.createElement(
+                "h2",
+                null,
+                "About This Project"
+            ),
+            React.createElement(
+                "h4",
+                null,
+                "This is a brief description of my next project"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "This is a static page that will eventually detail my project and the process I took to complete it"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "Here I'll outline how I did the project, what challenges and problems I faced and how I went about solving them. ",
+                React.createElement("br", null),
+                "I'll also likely throw a prototype image in to show how progress developed."
+            ),
+            React.createElement(
+                "ul",
+                null,
+                React.createElement(
+                    "li",
+                    null,
+                    "Example Step One"
+                ),
+                React.createElement(
+                    "li",
+                    null,
+                    "Example Step Two"
+                ),
+                React.createElement(
+                    "li",
+                    null,
+                    "I'll also be using either Bootstrap or Bulma for styling, and SASS so I don't hate myself"
+                )
+            )
+        )
+    );
+};
+
 var createLoginWindow = function createLoginWindow(csrf) {
     ReactDOM.render(React.createElement(LoginWindow, { csrf: csrf }), document.querySelector("#content"));
 };
@@ -105,9 +157,14 @@ var createSignupWindow = function createSignupWindow(csrf) {
     ReactDOM.render(React.createElement(SignupWindow, { csrf: csrf }), document.querySelector("#content"));
 };
 
+var createAboutWindow = function createAboutWindow() {
+    ReactDOM.render(React.createElement(AboutWindow, null), document.querySelector("#content"));
+};
+
 var setup = function setup(csrf) {
     var loginButton = document.querySelector("#loginButton");
     var signupButton = document.querySelector("#signupButton");
+    var aboutButton = document.querySelector("#aboutButton");
 
     signupButton.addEventListener("click", function (e) {
         e.preventDefault();
@@ -118,6 +175,12 @@ var setup = function setup(csrf) {
     loginButton.addEventListener("click", function (e) {
         e.preventDefault();
         createLoginWindow(csrf);
+        return false;
+    });
+
+    aboutButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        createAboutWindow();
         return false;
     });
 

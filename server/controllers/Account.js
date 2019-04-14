@@ -34,6 +34,57 @@ const login = (request, response) => {
   });
 };
 
+// Change password
+const passwordChange = (request, response) => {
+  const req = request;
+  const res = response;
+
+  // force cast strings to cover security flaws
+  const username = `${req.body.username}`;
+  const oldPassword = `${req.body.pass}`;
+  const newPass1 = `${req.body.pass1}`;
+  const newPass2 = `${req.body.pass2}`;
+
+  if(!oldPassword || !newPass1 || !newPass2){
+    return res.status(400).json({error: 'All fields are required!'});
+  }
+
+  if(newPass1 !== newPass2){
+    return res.status(400).json({error: "Passwords do not match!"});
+  }
+
+   return Account.AccountModel.authenticate(username, oldPassword, (err,account) => {
+    if(err || !account){
+      return res.status(401).json({error: "Current password is wrong"});
+    }
+
+    return Account.AccountModel.generateHash(newPass1, (salt,hash) => {
+      Account.AccountModel.findByUsername(username, (err, doc) => {
+        if (err) {
+          return callback(err);
+        }
+      
+        if (!doc) {
+          return callback();
+        }
+
+        doc.salt = salt;
+        doc.password = hash;
+
+        const savePromise = doc.save();
+
+        savePromise.then(() => {
+          req.session.account = Account.AccountModel.toAPI(doc);
+          return res.json({redirect: '/maker' });
+        });
+        
+      }); // end find by username
+
+    }); // end generateHash
+    
+  }); // end authenticate
+};
+
 const signup = (request, response) => {
   const req = request;
   const res = response;
@@ -92,5 +143,6 @@ module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
+module.exports.passwordChange = passwordChange;
 module.exports.getToken = getToken;
 

@@ -35,6 +35,10 @@ const handleSignup = (e) => {
     return false;
 };
 
+
+
+
+
 const LoginWindow = (props) => {
     return(
         <form id="loginForm" 
@@ -119,6 +123,8 @@ const createAboutWindow = () => {
         document.querySelector("#content")
     );
 };
+
+
 
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");

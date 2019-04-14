@@ -23,6 +23,15 @@ const makeDomo = (req, res) => {
     name: req.body.name,
     age: req.body.age,
     level: req.body.level,
+    race: req.body.race,
+    health: req.body.health,
+    armor: req.body.armor,
+    gold: req.body.gold,
+    strength: req.body.strength,
+    agility: req.body.agility,
+    wisdom: req.body.wisdom,
+    endurance: req.body.endurance,
+    defense: req.body.defense,
     owner: req.session.account._id,
   };
 

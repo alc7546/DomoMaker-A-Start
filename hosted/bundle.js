@@ -1,17 +1,17 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
+var handleCharacter = function handleCharacter(e) {
     e.preventDefault();
 
-    $("#domoMessage").animate({ width: 'hide' }, 350);
+    $("#characterMessage").animate({ width: 'hide' }, 350);
 
-    if ($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoLevel").val() == '') {
-        handleError("ROAR! All fields are required!");
+    if ($("#characterName").val() == '' || $("#characterAge").val() == '' || $("#characterLevel").val() == '') {
+        handleError("All fields are required!");
         return false;
     }
 
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-        loadDomosFromServer();
+    sendAjax('POST', $("#characterForm").attr("action"), $("#characterForm").serialize(), function () {
+        loadCharactersFromServer();
     });
 
     return false;
@@ -20,7 +20,7 @@ var handleDomo = function handleDomo(e) {
 var handlePasswordChange = function handlePasswordChange(e) {
     e.preventDefault();
 
-    $("#domoMessage").animate({ width: 'hide' }, 350);
+    $("#characterMessage").animate({ width: 'hide' }, 350);
 
     if ($("#user").val() == '' || $("#oldPassword").val() == '' || $("#newPass1").val() == '' || $("#newPass2").val() == '') {
         handleError("All fields are required!");
@@ -37,34 +37,34 @@ var handlePasswordChange = function handlePasswordChange(e) {
     return false;
 };
 
-var DomoForm = function DomoForm(props) {
+var CharacterForm = function CharacterForm(props) {
     return React.createElement(
         "form",
-        { id: "domoForm",
-            onSubmit: handleDomo,
-            name: "domoForm",
+        { id: "characterForm",
+            onSubmit: handleCharacter,
+            name: "characterForm",
             action: "/maker",
             method: "POST",
-            className: "domoForm"
+            className: "characterForm"
         },
         React.createElement(
             "label",
             { htmlFor: "name" },
             "Name: "
         ),
-        React.createElement("input", { id: "domoName", type: "text", name: "name", placeholder: "Domo Name" }),
+        React.createElement("input", { id: "charName", type: "text", name: "name", placeholder: "Character Name" }),
         React.createElement(
             "label",
             { htmlFor: "age" },
             "Age: "
         ),
-        React.createElement("input", { id: "domoAge", type: "number", min: "1", name: "age", placeholder: "Domo Age" }),
+        React.createElement("input", { id: "charAge", type: "number", min: "1", name: "age", placeholder: "Character Age" }),
         React.createElement(
             "label",
             { htmlFor: "level" },
             "Level: "
         ),
-        React.createElement("input", { id: "domoLevel", type: "number", min: "1", name: "level", placeholder: "Domo Level" }),
+        React.createElement("input", { id: "charLevel", type: "number", min: "1", name: "level", placeholder: "Character Level" }),
         React.createElement(
             "label",
             { htmlFor: "race" },
@@ -120,7 +120,7 @@ var DomoForm = function DomoForm(props) {
         ),
         React.createElement("input", { id: "charDefense", type: "number", min: "0", name: "defense", placeholder: "Character Defense" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" })
+        React.createElement("input", { className: "makeCharacterSubmit", type: "submit", value: "Make Character" })
     );
 };
 
@@ -163,116 +163,116 @@ var PassWordWindow = function PassWordWindow(props) {
     );
 };
 
-var DomoList = function DomoList(props) {
-    if (props.domos.length === 0) {
+var CharacterList = function CharacterList(props) {
+    if (props.characters.length === 0) {
         return React.createElement(
             "div",
-            { className: "domoList" },
+            { className: "characterList" },
             React.createElement(
                 "h3",
-                { className: "emptyDomo" },
-                "No Domos yet"
+                { className: "emptyCharacter" },
+                "No Characters yet"
             )
         );
     }
 
-    var domoNodes = props.domos.map(function (domo) {
+    var characterNodes = props.characters.map(function (character) {
         return React.createElement(
             "div",
-            { key: domo._id, className: "domo" },
-            React.createElement("img", { src: "/assets/img/domoface.jpeg", alt: "domo face", className: "domoFace" }),
+            { key: character._id, className: "character" },
+            React.createElement("img", { src: "/assets/img/domoface.jpeg", alt: "character face", className: "characterFace" }),
             React.createElement(
                 "h3",
-                { className: "domoName" },
+                { className: "charName" },
                 "Name: ",
-                domo.name,
+                character.name,
                 " "
             ),
             React.createElement(
                 "h3",
-                { className: "domoAge" },
+                { className: "charAge" },
                 "Age: ",
-                domo.age,
+                character.age,
                 " "
             ),
             React.createElement(
                 "h3",
-                { className: "domoLevel" },
+                { className: "charLevel" },
                 "Level: ",
-                domo.level
+                character.level
             ),
             React.createElement(
                 "h3",
                 { className: "charRace" },
                 "Race: ",
-                domo.race
+                character.race
             ),
             React.createElement(
                 "h3",
                 { className: "charHealth" },
                 "Health: ",
-                domo.health
+                character.health
             ),
             React.createElement(
                 "h3",
                 { className: "charArmor" },
                 "Armor: ",
-                domo.armor
+                character.armor
             ),
             React.createElement(
                 "h3",
                 { className: "charGold" },
                 "Gold: ",
-                domo.gold
+                character.gold
             ),
             React.createElement(
                 "h3",
                 { className: "charStrength" },
                 "Strength: ",
-                domo.strength
+                character.strength
             ),
             React.createElement(
                 "h3",
                 { className: "charAgility" },
                 "Agility: ",
-                domo.agility
+                character.agility
             ),
             React.createElement(
                 "h3",
                 { className: "charWisdom" },
                 "Wisdom: ",
-                domo.wisdom
+                character.wisdom
             ),
             React.createElement(
                 "h3",
                 { className: "charEndurance" },
                 "Endurance: ",
-                domo.endurance
+                character.endurance
             ),
             React.createElement(
                 "h3",
                 { className: "charDefense" },
                 "Defense: ",
-                domo.defense
+                character.defense
             )
         );
     });
 
     return React.createElement(
         "div",
-        { className: "domoList" },
-        domoNodes
+        { className: "characterList" },
+        characterNodes
     );
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-    sendAjax('GET', '/getDomos', null, function (data) {
-        ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector("#domos"));
+var loadCharactersFromServer = function loadCharactersFromServer() {
+    sendAjax('GET', '/getCharacters', null, function (data) {
+        ReactDOM.render(React.createElement(CharacterList, { characters: data.character }), document.querySelector("#characters"));
     });
 };
 
 var createPasswordWindow = function createPasswordWindow(csrf) {
-    ReactDOM.render(React.createElement(PassWordWindow, { csrf: csrf }), document.querySelector("#domos"));
+    ReactDOM.render(React.createElement(PassWordWindow, { csrf: csrf }), document.querySelector("#characters"));
 };
 
 var setup = function setup(csrf) {
@@ -284,11 +284,11 @@ var setup = function setup(csrf) {
         return false;
     });
 
-    ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector("#makeDomo"));
+    ReactDOM.render(React.createElement(CharacterForm, { csrf: csrf }), document.querySelector("#makeCharacter"));
 
-    ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector("#domos"));
+    ReactDOM.render(React.createElement(CharacterList, { characters: [] }), document.querySelector("#characters"));
 
-    loadDomosFromServer();
+    loadCharactersFromServer();
 };
 
 var getToken = function getToken() {
@@ -304,11 +304,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({ width: 'toggle' }, 350);
+    $("#characterMessage").animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
-    $("#domoMessage").animate({ width: 'hide' }, 350);
+    $("#characterMessage").animate({ width: 'hide' }, 350);
     window.location = response.redirect;
 };
 

@@ -1,15 +1,15 @@
-const handleDomo = (e) => {
+const handleCharacter = (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'}, 350);
+    $("#characterMessage").animate({width:'hide'}, 350);
 
-    if($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoLevel").val() == ''){
-        handleError("ROAR! All fields are required!");
+    if($("#characterName").val() == '' || $("#characterAge").val() == '' || $("#characterLevel").val() == ''){
+        handleError("All fields are required!");
         return false;
     }
 
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function(){
-        loadDomosFromServer();
+    sendAjax('POST', $("#characterForm").attr("action"), $("#characterForm").serialize(), function(){
+        loadCharactersFromServer();
     });
 
     return false;
@@ -18,7 +18,7 @@ const handleDomo = (e) => {
 const handlePasswordChange = (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#characterMessage").animate({width:'hide'},350);
 
     if($("#user").val() == '' || $("#oldPassword").val() == '' || $("#newPass1").val() == '' || $("#newPass2").val() == ''){
         handleError("All fields are required!");
@@ -35,21 +35,21 @@ const handlePasswordChange = (e) => {
     return false;
 };
 
-const DomoForm = (props) => {
+const CharacterForm = (props) => {
     return(
-        <form id="domoForm"
-            onSubmit={handleDomo}
-            name="domoForm"
+        <form id="characterForm"
+            onSubmit={handleCharacter}
+            name="characterForm"
             action="/maker"
             method="POST"
-            className="domoForm"
+            className="characterForm"
         >
             <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
+            <input id="charName" type="text" name="name" placeholder="Character Name"/>
             <label htmlFor="age">Age: </label>
-            <input id="domoAge" type="number" min="1" name="age" placeholder="Domo Age"/>
+            <input id="charAge" type="number" min="1" name="age" placeholder="Character Age"/>
             <label htmlFor="level">Level: </label>
-            <input id="domoLevel" type="number" min="1" name="level" placeholder="Domo Level"/>
+            <input id="charLevel" type="number" min="1" name="level" placeholder="Character Level"/>
             <label htmlFor="race">Race: </label>
             <input id="charRace" type="text" name="race" placeholder="Character Race"/>
             <label htmlFor="health">Health: </label>
@@ -69,7 +69,7 @@ const DomoForm = (props) => {
             <label htmlFor="defense">Defense: </label>
             <input id="charDefense" type="number" min="0" name="defense" placeholder="Character Defense"/>
             <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="makeDomoSubmit" type="submit" value="Make Domo" />
+            <input className="makeCharacterSubmit" type="submit" value="Make Character" />
         </form>
     );
 };
@@ -97,47 +97,47 @@ const PassWordWindow = (props) => {
     );
 };
 
-const DomoList = function(props){
-    if(props.domos.length === 0){
+const CharacterList = function(props){
+    if(props.characters.length === 0){
         return(
-            <div className="domoList">
-                <h3 className="emptyDomo">No Domos yet</h3>
+            <div className="characterList">
+                <h3 className="emptyCharacter">No Characters yet</h3>
             </div>
         );
     }
 
-    const domoNodes = props.domos.map(function(domo) {
+    const characterNodes = props.characters.map(function(character) {
         return(
-            <div key={domo._id} className="domo">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
-                <h3 className="domoName">Name: {domo.name} </h3>
-                <h3 className="domoAge">Age: {domo.age} </h3>
-                <h3 className="domoLevel">Level: {domo.level}</h3>
-                <h3 className="charRace">Race: {domo.race}</h3>
-                <h3 className="charHealth">Health: {domo.health}</h3>
-                <h3 className="charArmor">Armor: {domo.armor}</h3>
-                <h3 className="charGold">Gold: {domo.gold}</h3>
-                <h3 className="charStrength">Strength: {domo.strength}</h3>
-                <h3 className="charAgility">Agility: {domo.agility}</h3>
-                <h3 className="charWisdom">Wisdom: {domo.wisdom}</h3>
-                <h3 className="charEndurance">Endurance: {domo.endurance}</h3>
-                <h3 className="charDefense">Defense: {domo.defense}</h3>
+            <div key={character._id} className="character">
+                <img src="/assets/img/domoface.jpeg" alt="character face" className="characterFace"/>
+                <h3 className="charName">Name: {character.name} </h3>
+                <h3 className="charAge">Age: {character.age} </h3>
+                <h3 className="charLevel">Level: {character.level}</h3>
+                <h3 className="charRace">Race: {character.race}</h3>
+                <h3 className="charHealth">Health: {character.health}</h3>
+                <h3 className="charArmor">Armor: {character.armor}</h3>
+                <h3 className="charGold">Gold: {character.gold}</h3>
+                <h3 className="charStrength">Strength: {character.strength}</h3>
+                <h3 className="charAgility">Agility: {character.agility}</h3>
+                <h3 className="charWisdom">Wisdom: {character.wisdom}</h3>
+                <h3 className="charEndurance">Endurance: {character.endurance}</h3>
+                <h3 className="charDefense">Defense: {character.defense}</h3>
             </div>
         );
     });
 
     return(
-        <div className="domoList">
-            {domoNodes}
+        <div className="characterList">
+            {characterNodes}
         </div>
     );
 };
 
-const loadDomosFromServer = () => {
-    sendAjax('GET', '/getDomos', null, (data) => {
+const loadCharactersFromServer = () => {
+    sendAjax('GET', '/getCharacters', null, (data) => {
         ReactDOM.render(
-            <DomoList domos={data.domos} />,
-            document.querySelector("#domos")
+            <CharacterList characters={data.character} />,
+            document.querySelector("#characters")
         );
     });
 };
@@ -145,7 +145,7 @@ const loadDomosFromServer = () => {
 const createPasswordWindow = (csrf) => {
     ReactDOM.render(
         <PassWordWindow csrf={csrf} />,
-        document.querySelector("#domos")
+        document.querySelector("#characters")
     );
 };
 
@@ -159,15 +159,15 @@ const setup = function(csrf) {
     });
 
     ReactDOM.render(
-        <DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
+        <CharacterForm csrf={csrf} />, document.querySelector("#makeCharacter")
     );
 
     ReactDOM.render(
-        <DomoList domos={[]} />,
-        document.querySelector("#domos")
+        <CharacterList characters={[]} />,
+        document.querySelector("#characters")
     );
 
-    loadDomosFromServer();
+    loadCharactersFromServer();
 };
 
 const getToken = () => { 

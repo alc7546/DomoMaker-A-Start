@@ -1,25 +1,25 @@
 const models = require('../models');
 
-const Domo = models.Domo;
+const Character = models.Character;
 
 const makerPage = (req, res) => {
-  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  Character.CharacterModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.render('app', { csrfToken: req.csrfToken(), domos: docs });
+    return res.render('app', { csrfToken: req.csrfToken(), characters: docs });
   });
 };
 
 
-const makeDomo = (req, res) => {
+const makeCharacter = (req, res) => {
   if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: 'ROAR! Both name and age are required!' });
+    return res.status(400).json({ error: 'Both name and age are required!' });
   }
 
-  const domoData = {
+  const characterData = {
     name: req.body.name,
     age: req.body.age,
     level: req.body.level,
@@ -35,38 +35,38 @@ const makeDomo = (req, res) => {
     owner: req.session.account._id,
   };
 
-  const newDomo = new Domo.DomoModel(domoData);
+  const newCharacter = new Character.CharacterModel(characterData);
 
-  const domoPromise = newDomo.save();
+  const characterPromise = newCharacter.save();
 
-  domoPromise.then(() => res.json({ redirect: '/maker' }));
+  characterPromise.then(() => res.json({ redirect: '/maker' }));
 
-  domoPromise.catch((err) => {
+  characterPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Domo already exists.' });
+      return res.status(400).json({ error: 'Character already exists.' });
     }
 
     return res.status(400).json({ error: 'An error occurred' });
   });
 
-  return domoPromise;
+  return characterPromise;
 };
 
-const getDomos = (request, response) => {
+const getCharacters = (request, response) => {
   const req = request;
   const res = response;
 
-  return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  return Character.CharacterModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ domos: docs });
+    return res.json({ characters: docs });
   });
 };
 
 module.exports.makerPage = makerPage;
-module.exports.getDomos = getDomos;
-module.exports.make = makeDomo;
+module.exports.getCharacters = getCharacters;
+module.exports.make = makeCharacter;

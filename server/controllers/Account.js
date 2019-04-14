@@ -21,7 +21,7 @@ const login = (request, response) => {
 
     // check to make sure both exist
   if (!username || !password) {
-    return res.status(400).json({ error: 'ROAR! All fields are required!' });
+    return res.status(400).json({ error: 'All fields are required!' });
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
@@ -45,43 +45,42 @@ const passwordChange = (request, response) => {
   const newPass1 = `${req.body.pass1}`;
   const newPass2 = `${req.body.pass2}`;
 
-  if(!oldPassword || !newPass1 || !newPass2){
-    return res.status(400).json({error: 'All fields are required!'});
+  if (!oldPassword || !newPass1 || !newPass2) {
+    return res.status(400).json({ error: 'All fields are required!' });
   }
 
-  if(newPass1 !== newPass2){
-    return res.status(400).json({error: "Passwords do not match!"});
+  if (newPass1 !== newPass2) {
+    return res.status(400).json({ error: 'Passwords do not match!' });
   }
 
-   return Account.AccountModel.authenticate(username, oldPassword, (err,account) => {
-    if(err || !account){
-      return res.status(401).json({error: "Current password is wrong"});
+  return Account.AccountModel.authenticate(username, oldPassword, (err, account) => {
+    if (err || !account) {
+      return res.status(401).json({ error: 'Current password is wrong' });
     }
 
-    return Account.AccountModel.generateHash(newPass1, (salt,hash) => {
-      Account.AccountModel.findByUsername(username, (err, doc) => {
-        if (err) {
-          return callback(err);
+    return Account.AccountModel.generateHash(newPass1, (salt, hash) => {
+      Account.AccountModel.findByUsername(username, (error, doc) => {
+        if (error) {
+          return res.status(400).json({ error: 'An unexpected error occurred.' });
         }
-      
+
         if (!doc) {
-          return callback();
+          return res.status(400).json({ error: 'Account does not exist.' });
         }
 
-        doc.salt = salt;
-        doc.password = hash;
+        const currentAccount = doc;
+        currentAccount.salt = salt;
+        currentAccount.password = hash;
 
-        const savePromise = doc.save();
+        const savePromise = currentAccount.save();
 
         savePromise.then(() => {
-          req.session.account = Account.AccountModel.toAPI(doc);
-          return res.json({redirect: '/maker' });
+          req.session.account = Account.AccountModel.toAPI(currentAccount);
+          return res.json({ redirect: '/maker' });
         });
-        
+        return false;
       }); // end find by username
-
     }); // end generateHash
-    
   }); // end authenticate
 };
 
@@ -94,11 +93,11 @@ const signup = (request, response) => {
   req.body.pass2 = `${req.body.pass2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'ROAR! All fields are required!' });
+    return res.status(400).json({ error: 'All fields are required!' });
   }
 
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'ROAR! Passwords do not match!' });
+    return res.status(400).json({ error: 'Passwords do not match!' });
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {

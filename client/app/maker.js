@@ -100,7 +100,7 @@ const UpgradeWindow = () =>{
                     <li>
                         <a className="upgradeButton" id="marvel" href="#" onClick={() => alert("You have preordered the Marvel Sheet")}>Marvel Upgrade</a>
                     </li>
-                </div>
+                </div> 
                 
             </ul>
         </div>

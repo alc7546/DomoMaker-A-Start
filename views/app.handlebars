@@ -9,21 +9,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link rel="stylesheet" type="text/css" href="/assets/main.css"/>
 </head>
 <body>
-  <nav>
-    <a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
-    <div class="navlink"><a href="/logout">Log out</a></div>
-    <div class="navlink"><a id = "passwordButton" href="/passwordChange">User Settings</a></div>
-    
-  </nav>
-  <section id="makeCharacter"> <!-- makeDomo -->
-  </section>
-  <section id="characters"> <!-- domos -->
-  </section>
+  <header>
+    <nav>
+      <a class="home" href="/maker">Character Maker</a>
+      <ul>
+        <li><a id="logoutButton" href="/logout">Log Out</a></li>
+        <li><a id="passwordButton" href="/passwordChange">User Settings</a></li>
+        <li><a id="upgradeButton" href="upgradeButton">Upgrade</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id ="characterWrapper">
+    <div id="makeCharacter"> 
+    </div>
+    <div id="characters"> 
+    </div>
+  </div>
+  
   <div id="characterMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage"></span></h3><img id="character" src="assets/img/domo.png" alt="character"/>
+    <h3><span id="errorMessage"></span></h3><img id="character" src="assets/img/cain.png" alt="cain"/>
   </div>
   <script src="/assets/bundle.js"></script>
 </body>

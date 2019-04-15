@@ -9,17 +9,27 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/assets/main.css"/>
 </head>
 <body> 
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
-    <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
-    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
-    <div class="navlink"><a id="aboutButton" href="/about">About</a></div>
-  </nav>
+  <header>
+    <nav>
+      <span class="home">Character Maker</span>
+      <ul>
+        <li><a id="loginButton" href="/login">Login</a></li>
+        <li><a id="signupButton" href="/signup">Signup</a></li>
+        <li><a id="aboutButton" href="/about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="intro">
+    <h4>Continue Your Adventure!</h4>
+    <p>This app is a companion app for role playing games. Create your unique character now!</p>
+  </div>
   <section id="content"></section>
   <div id="characterMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage">Wrong username or password</span></h3><img id="character" src="assets/img/domo.png" alt="character"/>
+    <h3><span id="errorMessage">Wrong username or password</span></h3><img id="character" src="assets/img/cain.png" alt="character"/>
   </div>
   <script src="/assets/loginBundle.js"></script>
 </body>

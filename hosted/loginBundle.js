@@ -47,18 +47,10 @@ var LoginWindow = function LoginWindow(props) {
             method: "POST",
             className: "mainForm"
         },
-        React.createElement(
-            "label",
-            { htmlFor: "username" },
-            "Username: "
-        ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
-        React.createElement(
-            "label",
-            { htmlFor: "pass" },
-            "Password: "
-        ),
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+        React.createElement("label", { htmlFor: "username" }),
+        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
+        React.createElement("label", { htmlFor: "pass" }),
+        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign in" })
     );
@@ -74,24 +66,12 @@ var SignupWindow = function SignupWindow(props) {
             method: "POST",
             className: "mainForm"
         },
-        React.createElement(
-            "label",
-            { htmlFor: "username" },
-            "Username: "
-        ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
-        React.createElement(
-            "label",
-            { htmlFor: "pass" },
-            "Password: "
-        ),
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
-        React.createElement(
-            "label",
-            { htmlFor: "pass2" },
-            "Password: "
-        ),
-        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "retype password" }),
+        React.createElement("label", { htmlFor: "username" }),
+        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
+        React.createElement("label", { htmlFor: "pass" }),
+        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "Password" }),
+        React.createElement("label", { htmlFor: "pass2" }),
+        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "Retype password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
     );

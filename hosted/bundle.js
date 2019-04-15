@@ -124,6 +124,57 @@ var CharacterForm = function CharacterForm(props) {
     );
 };
 
+var UpgradeWindow = function UpgradeWindow() {
+    return React.createElement(
+        "ul",
+        null,
+        React.createElement(
+            "li",
+            null,
+            React.createElement(
+                "button",
+                { onClick: function onClick() {
+                        return alert("You have preordered the Star Wars Sheet");
+                    } },
+                "Star Wars Upgrade"
+            )
+        ),
+        React.createElement(
+            "li",
+            null,
+            React.createElement(
+                "button",
+                { onClick: function onClick() {
+                        return alert("You have preordered the Destiny Sheet");
+                    } },
+                "Destiny Upgrade"
+            )
+        ),
+        React.createElement(
+            "li",
+            null,
+            React.createElement(
+                "button",
+                { onClick: function onClick() {
+                        return alert("You have preordered the Star Trek Sheet");
+                    } },
+                "Star Trek Upgrade"
+            )
+        ),
+        React.createElement(
+            "li",
+            null,
+            React.createElement(
+                "button",
+                { onClick: function onClick() {
+                        return alert("You have preordered the Marvel Sheet");
+                    } },
+                "Marvel Upgrade"
+            )
+        )
+    );
+};
+
 var PassWordWindow = function PassWordWindow(props) {
     return React.createElement(
         "form",
@@ -134,30 +185,14 @@ var PassWordWindow = function PassWordWindow(props) {
             method: "POST",
             className: "mainForm"
         },
-        React.createElement(
-            "label",
-            { htmlFor: "username" },
-            "Username: "
-        ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
-        React.createElement(
-            "label",
-            { htmlFor: "pass" },
-            "Old Password: "
-        ),
-        React.createElement("input", { id: "oldPassword", type: "password", name: "pass", placeholder: "old password" }),
-        React.createElement(
-            "label",
-            { htmlFor: "pass1" },
-            "New Password: "
-        ),
-        React.createElement("input", { id: "newPass1", type: "password", name: "pass1", placeholder: "new password" }),
-        React.createElement(
-            "label",
-            { htmlFor: "pass2" },
-            "Retype New Password: "
-        ),
-        React.createElement("input", { id: "newPass2", type: "password", name: "pass2", placeholder: "retype password" }),
+        React.createElement("label", { htmlFor: "username" }),
+        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
+        React.createElement("label", { htmlFor: "pass" }),
+        React.createElement("input", { id: "oldPassword", type: "password", name: "pass", placeholder: "Old Password" }),
+        React.createElement("label", { htmlFor: "pass1" }),
+        React.createElement("input", { id: "newPass1", type: "password", name: "pass1", placeholder: "New Password" }),
+        React.createElement("label", { htmlFor: "pass2" }),
+        React.createElement("input", { id: "newPass2", type: "password", name: "pass2", placeholder: "Retype Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
     );
@@ -180,80 +215,88 @@ var CharacterList = function CharacterList(props) {
         return React.createElement(
             "div",
             { key: character._id, className: "character" },
-            React.createElement("img", { src: "/assets/img/domoface.jpeg", alt: "character face", className: "characterFace" }),
+            React.createElement("img", { src: "/assets/img/character.png", alt: "character face", className: "characterFace" }),
             React.createElement(
-                "h3",
-                { className: "charName" },
-                "Name: ",
-                character.name,
-                " "
+                "ul",
+                { id: "row1" },
+                React.createElement(
+                    "li",
+                    { className: "charName row1" },
+                    "Name: ",
+                    character.name,
+                    " "
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charAge row1" },
+                    "Age: ",
+                    character.age,
+                    " "
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charLevel row1" },
+                    "Level: ",
+                    character.level
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charRace row1" },
+                    "Race: ",
+                    character.race
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charHealth row1" },
+                    "Health: ",
+                    character.health
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charArmor row1" },
+                    "Armor: ",
+                    character.armor
+                )
             ),
             React.createElement(
-                "h3",
-                { className: "charAge" },
-                "Age: ",
-                character.age,
-                " "
-            ),
-            React.createElement(
-                "h3",
-                { className: "charLevel" },
-                "Level: ",
-                character.level
-            ),
-            React.createElement(
-                "h3",
-                { className: "charRace" },
-                "Race: ",
-                character.race
-            ),
-            React.createElement(
-                "h3",
-                { className: "charHealth" },
-                "Health: ",
-                character.health
-            ),
-            React.createElement(
-                "h3",
-                { className: "charArmor" },
-                "Armor: ",
-                character.armor
-            ),
-            React.createElement(
-                "h3",
-                { className: "charGold" },
-                "Gold: ",
-                character.gold
-            ),
-            React.createElement(
-                "h3",
-                { className: "charStrength" },
-                "Strength: ",
-                character.strength
-            ),
-            React.createElement(
-                "h3",
-                { className: "charAgility" },
-                "Agility: ",
-                character.agility
-            ),
-            React.createElement(
-                "h3",
-                { className: "charWisdom" },
-                "Wisdom: ",
-                character.wisdom
-            ),
-            React.createElement(
-                "h3",
-                { className: "charEndurance" },
-                "Endurance: ",
-                character.endurance
-            ),
-            React.createElement(
-                "h3",
-                { className: "charDefense" },
-                "Defense: ",
-                character.defense
+                "ul",
+                { id: "row2" },
+                React.createElement(
+                    "li",
+                    { className: "charGold" },
+                    "Gold: ",
+                    character.gold
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charStrength" },
+                    "Strength: ",
+                    character.strength
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charAgility" },
+                    "Agility: ",
+                    character.agility
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charWisdom " },
+                    "Wisdom: ",
+                    character.wisdom
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charEndurance " },
+                    "Endurance: ",
+                    character.endurance
+                ),
+                React.createElement(
+                    "li",
+                    { className: "charDefense " },
+                    "Defense: ",
+                    character.defense
+                )
             )
         );
     });
@@ -267,20 +310,31 @@ var CharacterList = function CharacterList(props) {
 
 var loadCharactersFromServer = function loadCharactersFromServer() {
     sendAjax('GET', '/getCharacters', null, function (data) {
-        ReactDOM.render(React.createElement(CharacterList, { characters: data.character }), document.querySelector("#characters"));
+        ReactDOM.render(React.createElement(CharacterList, { characters: data.characters }), document.querySelector("#characters"));
     });
 };
 
 var createPasswordWindow = function createPasswordWindow(csrf) {
-    ReactDOM.render(React.createElement(PassWordWindow, { csrf: csrf }), document.querySelector("#characters"));
+    ReactDOM.render(React.createElement(PassWordWindow, { csrf: csrf }), document.querySelector("#characterWrapper"));
+};
+
+var createUpgradeWindow = function createUpgradeWindow() {
+    ReactDOM.render(React.createElement(UpgradeWindow, null), document.querySelector("#characterWrapper"));
 };
 
 var setup = function setup(csrf) {
     var passwordButton = document.querySelector("#passwordButton");
+    var upgradeButton = document.querySelector("#upgradeButton");
 
     passwordButton.addEventListener("click", function (e) {
         e.preventDefault();
         createPasswordWindow(csrf);
+        return false;
+    });
+
+    upgradeButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        createUpgradeWindow();
         return false;
     });
 

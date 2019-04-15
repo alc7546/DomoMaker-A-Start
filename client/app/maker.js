@@ -74,6 +74,25 @@ const CharacterForm = (props) => {
     );
 };
 
+const UpgradeWindow = () =>{
+    return(
+        <ul>
+            <li>
+                <button onClick={() => alert("You have preordered the Star Wars Sheet")}>Star Wars Upgrade</button>
+            </li>
+            <li>
+                <button onClick={() => alert("You have preordered the Destiny Sheet")}>Destiny Upgrade</button>
+            </li>
+            <li>
+                <button onClick={() => alert("You have preordered the Star Trek Sheet")}>Star Trek Upgrade</button>
+            </li>
+            <li>
+                <button onClick={() => alert("You have preordered the Marvel Sheet")}>Marvel Upgrade</button>
+            </li>
+        </ul>
+    );
+};
+
 const PassWordWindow = (props) => {
     return(
         <form id="passwordChangeForm"
@@ -83,14 +102,14 @@ const PassWordWindow = (props) => {
             method="POST"
             className="mainForm"
         >
-        <label htmlFor="username">Username: </label>
-        <input id="user" type="text" name="username" placeholder="username"/>
-        <label htmlFor="pass">Old Password: </label>
-        <input id="oldPassword" type="password" name="pass" placeholder="old password"/>
-        <label htmlFor="pass1">New Password: </label>
-        <input id="newPass1" type="password" name="pass1" placeholder="new password"/>
-        <label htmlFor="pass2">Retype New Password: </label>
-        <input id="newPass2" type="password" name="pass2" placeholder="retype password"/>
+        <label htmlFor="username"></label>
+        <input id="user" type="text" name="username" placeholder="Username"/>
+        <label htmlFor="pass"></label>
+        <input id="oldPassword" type="password" name="pass" placeholder="Old Password"/>
+        <label htmlFor="pass1"></label>
+        <input id="newPass1" type="password" name="pass1" placeholder="New Password"/>
+        <label htmlFor="pass2"></label>
+        <input id="newPass2" type="password" name="pass2" placeholder="Retype Password"/>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="formSubmit" type="submit" value="Sign Up"/>
         </form>
@@ -109,19 +128,24 @@ const CharacterList = function(props){
     const characterNodes = props.characters.map(function(character) {
         return(
             <div key={character._id} className="character">
-                <img src="/assets/img/domoface.jpeg" alt="character face" className="characterFace"/>
-                <h3 className="charName">Name: {character.name} </h3>
-                <h3 className="charAge">Age: {character.age} </h3>
-                <h3 className="charLevel">Level: {character.level}</h3>
-                <h3 className="charRace">Race: {character.race}</h3>
-                <h3 className="charHealth">Health: {character.health}</h3>
-                <h3 className="charArmor">Armor: {character.armor}</h3>
-                <h3 className="charGold">Gold: {character.gold}</h3>
-                <h3 className="charStrength">Strength: {character.strength}</h3>
-                <h3 className="charAgility">Agility: {character.agility}</h3>
-                <h3 className="charWisdom">Wisdom: {character.wisdom}</h3>
-                <h3 className="charEndurance">Endurance: {character.endurance}</h3>
-                <h3 className="charDefense">Defense: {character.defense}</h3>
+                <img src="/assets/img/character.png" alt="character face" className="characterFace"/>
+                <ul id="row1">
+                    <li className="charName row1">Name: {character.name} </li>
+                    <li className="charAge row1">Age: {character.age} </li>
+                    <li className="charLevel row1">Level: {character.level}</li>
+                    <li className="charRace row1">Race: {character.race}</li>
+                    <li className="charHealth row1">Health: {character.health}</li>
+                    <li className="charArmor row1">Armor: {character.armor}</li>
+                </ul>
+                <ul id="row2">
+                    <li className="charGold">Gold: {character.gold}</li>
+                    <li className="charStrength">Strength: {character.strength}</li>
+                    <li className="charAgility">Agility: {character.agility}</li>
+                    <li className="charWisdom ">Wisdom: {character.wisdom}</li>
+                    <li className="charEndurance ">Endurance: {character.endurance}</li>
+                    <li className="charDefense ">Defense: {character.defense}</li>
+                </ul>
+                
             </div>
         );
     });
@@ -136,7 +160,7 @@ const CharacterList = function(props){
 const loadCharactersFromServer = () => {
     sendAjax('GET', '/getCharacters', null, (data) => {
         ReactDOM.render(
-            <CharacterList characters={data.character} />,
+            <CharacterList characters={data.characters} />,
             document.querySelector("#characters")
         );
     });
@@ -145,16 +169,30 @@ const loadCharactersFromServer = () => {
 const createPasswordWindow = (csrf) => {
     ReactDOM.render(
         <PassWordWindow csrf={csrf} />,
-        document.querySelector("#characters")
+        document.querySelector("#characterWrapper")
+    );
+};
+
+const createUpgradeWindow = () => {
+    ReactDOM.render(
+        <UpgradeWindow />,
+        document.querySelector("#characterWrapper")
     );
 };
 
 const setup = function(csrf) {
     const passwordButton = document.querySelector("#passwordButton");
+    const upgradeButton = document.querySelector("#upgradeButton");
 
     passwordButton.addEventListener("click", (e) => {
         e.preventDefault();
         createPasswordWindow(csrf);
+        return false;
+    });
+
+    upgradeButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createUpgradeWindow();
         return false;
     });
 

@@ -126,50 +126,81 @@ var CharacterForm = function CharacterForm(props) {
 
 var UpgradeWindow = function UpgradeWindow() {
     return React.createElement(
-        "ul",
-        null,
+        "div",
+        { id: "upgradeContainer" },
         React.createElement(
-            "li",
+            "div",
             null,
             React.createElement(
-                "button",
-                { onClick: function onClick() {
-                        return alert("You have preordered the Star Wars Sheet");
-                    } },
-                "Star Wars Upgrade"
+                "h3",
+                null,
+                "Unlock New Templates!"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "This app, and this feature are a work in progress!"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "In the future, you will be able to buy new themed templates to create unique characters from your favorite movies, shows, or games!"
             )
         ),
         React.createElement(
-            "li",
+            "ul",
             null,
             React.createElement(
-                "button",
-                { onClick: function onClick() {
-                        return alert("You have preordered the Destiny Sheet");
-                    } },
-                "Destiny Upgrade"
-            )
-        ),
-        React.createElement(
-            "li",
-            null,
+                "div",
+                { id: "row1" },
+                React.createElement(
+                    "li",
+                    null,
+                    React.createElement(
+                        "a",
+                        { className: "upgradeButton", id: "starWars", href: "#", onClick: function onClick() {
+                                return alert("You have preordered the Star Wars Sheet");
+                            } },
+                        "Star Wars Upgrade"
+                    )
+                ),
+                React.createElement(
+                    "li",
+                    null,
+                    React.createElement(
+                        "a",
+                        { className: "upgradeButton", id: "destiny", href: "#", onClick: function onClick() {
+                                return alert("You have preordered the Destiny Sheet");
+                            } },
+                        "Destiny Upgrade"
+                    )
+                )
+            ),
             React.createElement(
-                "button",
-                { onClick: function onClick() {
-                        return alert("You have preordered the Star Trek Sheet");
-                    } },
-                "Star Trek Upgrade"
-            )
-        ),
-        React.createElement(
-            "li",
-            null,
-            React.createElement(
-                "button",
-                { onClick: function onClick() {
-                        return alert("You have preordered the Marvel Sheet");
-                    } },
-                "Marvel Upgrade"
+                "div",
+                { id: "row2" },
+                React.createElement(
+                    "li",
+                    null,
+                    React.createElement(
+                        "a",
+                        { className: "upgradeButton", id: "starTrek", href: "#", onClick: function onClick() {
+                                return alert("You have preordered the Star Trek Sheet");
+                            } },
+                        "Star Trek Upgrade"
+                    )
+                ),
+                React.createElement(
+                    "li",
+                    null,
+                    React.createElement(
+                        "a",
+                        { className: "upgradeButton", id: "marvel", href: "#", onClick: function onClick() {
+                                return alert("You have preordered the Marvel Sheet");
+                            } },
+                        "Marvel Upgrade"
+                    )
+                )
             )
         )
     );
@@ -185,6 +216,20 @@ var PassWordWindow = function PassWordWindow(props) {
             method: "POST",
             className: "mainForm"
         },
+        React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h3",
+                null,
+                "Change Your Password!"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "Feeling unsafe? Got a weird email? Keep your account secure and change your password."
+            )
+        ),
         React.createElement("label", { htmlFor: "username" }),
         React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
         React.createElement("label", { htmlFor: "pass" }),
@@ -194,7 +239,15 @@ var PassWordWindow = function PassWordWindow(props) {
         React.createElement("label", { htmlFor: "pass2" }),
         React.createElement("input", { id: "newPass2", type: "password", name: "pass2", placeholder: "Retype Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
+        React.createElement(
+            "button",
+            { "data-hover": "Secure Your Base!", className: "formSubmit", type: "submit" },
+            React.createElement(
+                "div",
+                null,
+                "Change Password"
+            )
+        )
     );
 };
 

@@ -47,12 +47,36 @@ var LoginWindow = function LoginWindow(props) {
             method: "POST",
             className: "mainForm"
         },
+        React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h3",
+                null,
+                "Continue Your Adventure!"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "Welcome traveler! Create new characters for your tabletop adventures!",
+                React.createElement("br", null),
+                "While this app still has a long way to go, you can begin creating characters with a moderate amount of stats and customization."
+            )
+        ),
         React.createElement("label", { htmlFor: "username" }),
         React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
         React.createElement("label", { htmlFor: "pass" }),
         React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign in" })
+        React.createElement(
+            "button",
+            { "data-hover": "Let's Go!", className: "formSubmit", type: "submit" },
+            React.createElement(
+                "div",
+                null,
+                "Login"
+            )
+        )
     );
 };
 
@@ -66,6 +90,22 @@ var SignupWindow = function SignupWindow(props) {
             method: "POST",
             className: "mainForm"
         },
+        React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h3",
+                null,
+                "Begin Your Adventure!"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "Welcome traveler! Create new characters for your tabletop adventures!",
+                React.createElement("br", null),
+                "While this app still has a long way to go, you can begin creating characters with a moderate amount of stats and customization."
+            )
+        ),
         React.createElement("label", { htmlFor: "username" }),
         React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
         React.createElement("label", { htmlFor: "pass" }),
@@ -73,7 +113,15 @@ var SignupWindow = function SignupWindow(props) {
         React.createElement("label", { htmlFor: "pass2" }),
         React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "Retype password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
+        React.createElement(
+            "button",
+            { "data-hover": "Let's Go!", className: "formSubmit", type: "submit" },
+            React.createElement(
+                "div",
+                null,
+                "Sign Up"
+            )
+        )
     );
 };
 
@@ -92,38 +140,71 @@ var AboutWindow = function AboutWindow() {
             React.createElement(
                 "h4",
                 null,
-                "This is a brief description of my next project"
+                "Character Maker Development"
             ),
             React.createElement(
                 "p",
                 null,
-                "This is a static page that will eventually detail my project and the process I took to complete it"
+                "I created this project as I have recently gotten into playing role-playing games and found the stat management among the most interesting aspects of the genre."
             ),
             React.createElement(
                 "p",
                 null,
-                "Here I'll outline how I did the project, what challenges and problems I faced and how I went about solving them. ",
+                "I decided to break down what I believed were common factors or attributes for a role-playing character.",
                 React.createElement("br", null),
-                "I'll also likely throw a prototype image in to show how progress developed."
+                "I then used MongoDB to store these values, allowing users to build up a list of their customized characters."
             ),
             React.createElement(
                 "ul",
                 null,
                 React.createElement(
-                    "li",
+                    "h4",
                     null,
-                    "Example Step One"
+                    "Shortcomings"
+                ),
+                React.createElement(
+                    "p",
+                    null,
+                    "No project (of mine at least) is without some shortcomings. Due to some programming issues, time management, and hectic classes, I didn't accomplish all I had hoped.",
+                    React.createElement("br", null),
+                    "I'll likely revisit this project for the third project, and accomplish some of these goals."
                 ),
                 React.createElement(
                     "li",
                     null,
-                    "Example Step Two"
+                    "Restyle the project further."
                 ),
                 React.createElement(
                     "li",
                     null,
-                    "I'll also be using either Bootstrap or Bulma for styling, and SASS so I don't hate myself"
+                    "Implement custom template themes."
+                ),
+                React.createElement(
+                    "li",
+                    null,
+                    "Allow for editing of the characters."
+                ),
+                React.createElement(
+                    "li",
+                    null,
+                    "Allow for deleting of characters."
                 )
+            ),
+            React.createElement(
+                "h4",
+                null,
+                "Resources Used"
+            ),
+            React.createElement(
+                "a",
+                { href: "https://codepen.io/madshaakansson/pen/iqDsG?editors=1100" },
+                "Text Transition CSS"
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "a",
+                { href: "https://freefrontend.com/css-button-hover-effects/" },
+                "Button/Border CSS"
             )
         )
     );

@@ -76,25 +76,41 @@ const CharacterForm = (props) => {
 
 const UpgradeWindow = () =>{
     return(
-        <ul>
-            <li>
-                <button onClick={() => alert("You have preordered the Star Wars Sheet")}>Star Wars Upgrade</button>
-            </li>
-            <li>
-                <button onClick={() => alert("You have preordered the Destiny Sheet")}>Destiny Upgrade</button>
-            </li>
-            <li>
-                <button onClick={() => alert("You have preordered the Star Trek Sheet")}>Star Trek Upgrade</button>
-            </li>
-            <li>
-                <button onClick={() => alert("You have preordered the Marvel Sheet")}>Marvel Upgrade</button>
-            </li>
-        </ul>
+        <div id="upgradeContainer">
+        <div>
+            <h3>Unlock New Templates!</h3>
+            <p>This app, and this feature are a work in progress!</p>
+            <p>In the future, you will be able to buy new themed templates to create
+                unique characters from your favorite movies, shows, or games!
+            </p>
+        </div>
+            <ul>
+                <div id="row1">
+                    <li>
+                        <a className="upgradeButton" id="starWars" href="#" onClick={() => alert("You have preordered the Star Wars Sheet")}>Star Wars Upgrade</a>
+                    </li>
+                    <li>
+                        <a className="upgradeButton" id="destiny" href="#" onClick={() => alert("You have preordered the Destiny Sheet")}>Destiny Upgrade</a>
+                    </li>
+                </div>
+                <div id="row2">
+                    <li>
+                        <a className="upgradeButton" id="starTrek" href="#" onClick={() => alert("You have preordered the Star Trek Sheet")}>Star Trek Upgrade</a>
+                    </li>
+                    <li>
+                        <a className="upgradeButton" id="marvel" href="#" onClick={() => alert("You have preordered the Marvel Sheet")}>Marvel Upgrade</a>
+                    </li>
+                </div>
+                
+            </ul>
+        </div>
+        
     );
 };
 
 const PassWordWindow = (props) => {
     return(
+        
         <form id="passwordChangeForm"
             name="passwordChangeForm"
             onSubmit={handlePasswordChange}
@@ -102,6 +118,10 @@ const PassWordWindow = (props) => {
             method="POST"
             className="mainForm"
         >
+        <div>
+            <h3>Change Your Password!</h3>
+            <p>Feeling unsafe? Got a weird email? Keep your account secure and change your password.</p>
+        </div>
         <label htmlFor="username"></label>
         <input id="user" type="text" name="username" placeholder="Username"/>
         <label htmlFor="pass"></label>
@@ -111,7 +131,7 @@ const PassWordWindow = (props) => {
         <label htmlFor="pass2"></label>
         <input id="newPass2" type="password" name="pass2" placeholder="Retype Password"/>
         <input type="hidden" name="_csrf" value={props.csrf} />
-        <input className="formSubmit" type="submit" value="Sign Up"/>
+        <button data-hover="Secure Your Base!" className="formSubmit" type="submit"><div>Change Password</div></button>
         </form>
     );
 };

@@ -36,18 +36,11 @@ header li a {
   text-decoration: none;
 }
 
-.intro {
-  text-align: center;
-}
-.intro h4 {
-  font-size: 1.3rem;
-}
-
 .mainForm {
   height: 300px;
   width: 350px;
   margin: 0 auto;
-  padding-top: 150px;
+  padding-top: 25px;
   font-size: 1.2em;
   text-align: center;
 }
@@ -57,31 +50,62 @@ header li a {
   margin-bottom: 5px;
   width: 180px;
   border-radius: 6px;
+  border: 2px solid #35c779a1 !important;
 }
-
-.formSubmit {
-  transition: background-color 0.4s ease;
-  display: block;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 14px;
-  font-size: 1.2em;
-  width: 100px;
-  background-color: #55acee;
-  border-radius: 2px;
-  border-color: #66acee;
-  padding: 3px 0px;
-  color: white;
-  text-decoration: none;
+.mainForm input[type=text]:hover, .mainForm input[type=password]:hover {
+  color: #494949 !important;
+  border-radius: 50px;
+  border-color: #494949 !important;
+  transition: all 0.8s ease 0s;
 }
-
-.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
-  color: white;
+.mainForm input[type=text]:focus, .mainForm input[type=password]:focus {
+  color: #494949 !important;
+  border-radius: 50px;
+  border-color: #494949 !important;
+  outline: 0;
 }
-
-.formSubmit:hover {
-  transition: background-color 0.4s ease;
-  background-color: #338acc;
+.mainForm .formSubmit {
+  background: transparent;
+  outline: none;
+  position: relative;
+  border: 2px solid #35c779a1;
+  padding: 10px 5px;
+  overflow: hidden;
+  width: 180px;
+  border-radius: 6px;
+  font-size: 1.5rem;
+}
+.mainForm .formSubmit div {
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #707070;
+  transition: all 0.3s ease-in-out;
+}
+.mainForm .formSubmit:hover:before {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.mainForm .formSubmit:before {
+  content: attr(data-hover);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #4b4a4a;
+  opacity: 0;
+  transform: translate(-100%, 0);
+  transition: all 0.3s ease-in-out;
+}
+.mainForm .formSubmit:hover {
+  cursor: pointer;
+  border-radius: 50px;
+  border-color: #494949 !important;
+  transition: all 0.8s ease 0s;
+}
+.mainForm .formSubmit:hover div {
+  opacity: 0;
+  transform: translate(100%, 0);
 }
 
 #characterMessage {
@@ -129,6 +153,44 @@ header li a {
 #characterWrapper {
   width: 100%;
   margin: auto;
+}
+
+#wrapper {
+  text-align: center;
+}
+#wrapper #sideContent ul {
+  list-style-type: none;
+}
+
+#upgradeContainer {
+  text-align: center;
+}
+#upgradeContainer ul {
+  list-style-type: none;
+}
+#upgradeContainer ul li {
+  list-style-type: none;
+}
+#upgradeContainer .upgradeButton {
+  color: #35c779;
+  text-transform: uppercase;
+  background: #ffffff;
+  padding: 20px;
+  border: 3px solid #35c779 !important;
+  border-radius: 6px;
+  display: inline-block;
+  text-decoration: none;
+  width: 150px;
+  margin-bottom: 0.8rem;
+}
+#upgradeContainer .upgradeButton:hover {
+  color: #494949 !important;
+  border-radius: 50px;
+  border-color: #494949 !important;
+  transition: all 0.3s ease 0s;
+}
+#upgradeContainer .upgradeButton:focus {
+  outline: 0;
 }
 
 #characterForm {

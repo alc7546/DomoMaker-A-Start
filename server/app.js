@@ -20,7 +20,7 @@ mongoose.connect(dbURL, (err) => {
     console.log('Could not connect to the databse');
     throw err;
   }
-});
+}); 
 
 // Redis connection
 let redisURL = {

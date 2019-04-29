@@ -350,6 +350,13 @@ var CharacterList = function CharacterList(props) {
                     "Defense: ",
                     character.defense
                 )
+            ),
+            React.createElement(
+                "a",
+                { className: "upgradeButton", id: "starWars", href: "#", onClick: function onClick() {
+                        return sendAjax("POST", "/deleteCharacter");
+                    } },
+                "Delete"
             )
         );
     });

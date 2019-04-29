@@ -19,38 +19,35 @@ const makeCharacter = (req, res) => {
     return res.status(400).json({ error: 'Both name and age are required!' });
   }
 
-  const characterData = {
-    name: req.body.name,
-    age: req.body.age,
-    level: req.body.level,
-    race: req.body.race,
-    health: req.body.health,
-    armor: req.body.armor,
-    gold: req.body.gold,
-    strength: req.body.strength,
-    agility: req.body.agility,
-    wisdom: req.body.wisdom,
-    endurance: req.body.endurance,
-    defense: req.body.defense,
-    owner: req.session.account._id,
-  };
+  Character.CharacterModel.findOneAndUpdate(
+    {
+      name: req.body.name,
+      owner: req.session.account._id,
+    },
+    {
+      name: req.body.name,
+      age: req.body.age,
+      level: req.body.level,
+      race: req.body.race,
+      health: req.body.health,
+      armor: req.body.armor,
+      gold: req.body.gold,
+      strength: req.body.strength,
+      agility: req.body.agility,
+      wisdom: req.body.wisdom,
+      endurance: req.body.endurance,
+      defense: req.body.defense,
+      owner: req.session.account._id,
+    },
+    { upsert: true },
+    (err) => {
+      if (err) {
+        console.log(err);
+      }
 
-  const newCharacter = new Character.CharacterModel(characterData);
-
-  const characterPromise = newCharacter.save();
-
-  characterPromise.then(() => res.json({ redirect: '/maker' }));
-
-  characterPromise.catch((err) => {
-    console.log(err);
-    if (err.code === 11000) {
-      return res.status(400).json({ error: 'Character already exists.' });
+      res.json({ redirect: '/maker' });
     }
-
-    return res.status(400).json({ error: 'An error occurred' });
-  });
-
-  return characterPromise;
+  );
 };
 
 const getCharacters = (request, response) => {
@@ -67,6 +64,12 @@ const getCharacters = (request, response) => {
   });
 };
 
+const deleteCharacter = (req, res) => {
+  Character.CharacterModel.deleteOne({_id: req.body._id, owner: req.session.account._id});
+  
+};
+
 module.exports.makerPage = makerPage;
 module.exports.getCharacters = getCharacters;
 module.exports.make = makeCharacter;
+module.exports.deleteCharacter = deleteCharacter;

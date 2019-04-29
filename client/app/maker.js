@@ -145,6 +145,8 @@ const CharacterList = function(props){
         );
     }
 
+    
+
     const characterNodes = props.characters.map(function(character) {
         return(
             <div key={character._id} className="character">
@@ -165,7 +167,7 @@ const CharacterList = function(props){
                     <li className="charEndurance ">Endurance: {character.endurance}</li>
                     <li className="charDefense ">Defense: {character.defense}</li>
                 </ul>
-                
+                <a className="upgradeButton" id="starWars" href="#" onClick={() => sendAjax("POST", "/deleteCharacter", )}>Delete</a>
             </div>
         );
     });

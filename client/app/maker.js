@@ -154,7 +154,7 @@ const CharacterList = function(props){
     if(props.characters.length === 0){
         return(
             <div className="characterList">
-                <h3 className="emptyCharacter">No Characters yet</h3>
+                <h3 className="emptyCharacter">No Characters Yet</h3>
             </div>
         );
     }
@@ -197,6 +197,31 @@ const CharacterList = function(props){
     );
 };
 
+// Dice Window
+
+const DiceWindow = (props) => {
+
+    
+    
+    const rollDice = () => {
+        var die = document.getElementById("result");
+        die.innerHTML = (Math.floor(Math.random() * 20) + 1);
+        
+    };
+    return(
+        <div id ="diceContainer" key={props.roll}>
+            <div>
+                <h3>Roll the Dice!</h3>
+                <p>This is a 20 sided dice. Click it for a random roll!</p>
+            </div>
+            <button><img id ="dice" src="/assets/img/dice.png" alt="die" onClick={() =>  props.roll = rollDice()} /></button>
+            <h1 id ="result">0</h1>
+        </div>
+    );
+};
+
+
+// Create Characters
 const loadCharactersFromServer = (csrf) => {
     console.log("yeet");
     sendAjax('GET', '/getCharacters', null, (data) => {
@@ -206,6 +231,8 @@ const loadCharactersFromServer = (csrf) => {
         );
     });
 };
+
+// Create Windows for Render
 
 const createPasswordWindow = (csrf) => {
     ReactDOM.render(
@@ -221,9 +248,17 @@ const createUpgradeWindow = () => {
     );
 };
 
+const createDiceWindow = () => {
+    ReactDOM.render(
+        <DiceWindow roll={0}/>,
+        document.querySelector("#characterWrapper")
+    );
+};
+
 const setup = function(csrf) {
     const passwordButton = document.querySelector("#passwordButton");
     const upgradeButton = document.querySelector("#upgradeButton");
+    const diceButton = document.querySelector("#diceButton");
 
     passwordButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -234,6 +269,12 @@ const setup = function(csrf) {
     upgradeButton.addEventListener("click", (e) => {
         e.preventDefault();
         createUpgradeWindow();
+        return false;
+    });
+
+    diceButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createDiceWindow();
         return false;
     });
 

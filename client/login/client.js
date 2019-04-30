@@ -53,8 +53,7 @@ const LoginWindow = (props) => {
             <p>
                 Welcome traveler! Create new characters for your tabletop adventures! 
                 <br></br>
-                While this app still has a long way to go, you can begin creating characters
-                with a moderate amount of stats and customization.
+                This app is still on its own journey, but enjoy what it has to offer so far!
             </p>
         </div>
         <label htmlFor="username"></label>
@@ -81,8 +80,7 @@ const SignupWindow = (props) => {
             <p>
                 Welcome traveler! Create new characters for your tabletop adventures! 
                 <br></br>
-                While this app still has a long way to go, you can begin creating characters
-                with a moderate amount of stats and customization.
+                This app is still on its own journey, but enjoy what it has to offer so far!
             </p>
         </div>
         <label htmlFor="username"></label>
@@ -106,27 +104,51 @@ const AboutWindow = () => {
             <h4>Character Maker Development</h4>
             <p>I created this project as I have recently gotten into
                 playing role-playing games and found the stat management 
-                among the most interesting aspects of the genre.
+                among the most interesting aspects of the genre. <br></br>It has also gotten me interested in tabletop
+                games, but I've yet to actually play those.
             </p>
             <p>I decided to break down what I believed were common factors or attributes
                 for a role-playing character.<br></br>I then used MongoDB to store these values,
-                allowing users to build up a list of their customized characters.
+                allowing users to build up a list of their customized characters.<br></br>
+                The project is built with React and Handlebars to handle updates of dynamic content.
             </p>
             <ul>
                 <h4>Shortcomings</h4>
-                <p>No project (of mine at least) is without some shortcomings. Due to some
-                    programming issues, time management, and hectic classes, I didn't accomplish all I had hoped.<br></br>
-                    I'll likely revisit this project for the third project, and accomplish some of these goals.
+                <p>The final project still has some shortcomings. All of the basic functionality is present, but I missed out on the stretch goals of<br></br>
+                    implenting custom templates. I also used pure CSS for styling and not a framework, which while it was fun to explore different tutorials, <br></br>
+                    the site itself is not responsive.
                 </p>
-                <li>Restyle the project further.</li>
-                <li>Implement custom template themes.</li>
-                <li>Allow for editing of the characters.</li>
-                <li>Allow for deleting of characters.</li>
+                <h4>What I'd do with more time</h4>
+                <li>- Restyle the project further with a framework for responsve design.</li>
+                <li>- Implement custom template themes.</li>
+                <li>- Hook up an email subscription list</li>
+                
             </ul>
-            <h4>Resources Used</h4>
-            <a href="https://codepen.io/madshaakansson/pen/iqDsG?editors=1100">Text Transition CSS</a>
+            
+        </div>
+        </div>
+    );
+};
+
+const ResourcesWindow = () => {
+    return(
+        <div id = "wrapper">
+        <div id="sideContent">
+            <h2>Resources Used</h2>
+            <a href="https://codepen.io/madshaakansson/pen/iqDsG?editors=1100">Text Submission Movement - CSS</a>
             <br></br>
-            <a href="https://freefrontend.com/css-button-hover-effects/">Button/Border CSS</a>
+            <a href="https://freefrontend.com/css-button-hover-effects/">Form Button Border Animations - CSS</a>
+            <br></br>
+            <a href="https://codepen.io/Emanuel_G/pen/YVJOZo">Navbar Button Animations - CSS</a>
+            <br></br>
+            <a href="https://fonts.googleapis.com/css?family=Lato">Font Family Used: Lato</a>
+            <br></br>
+            <a href="https://www.deviantart.com/turtlegirlman/art/d20-icon-de-la-Gartoon-60651092">Main Dice Picture</a>
+            <br></br>
+            <a href="https://www.imagenesmy.com/imagenes/dungeon-icon-3e.html">Favicon Image</a>
+            <br></br>
+            <a href="https://webiconspng.com/wp-content/uploads/2017/01/Red-Trash-Simple-Icon.png">Red Trash Symbol</a>
+            <p>The other icons were derived from a variety of free use icon sites or icon archives. Explicit credit can be provided if requested.</p>
         </div>
         </div>
     );
@@ -153,12 +175,19 @@ const createAboutWindow = () => {
     );
 };
 
+const createResourceWindow = () => {
+    ReactDOM.render(
+        <ResourcesWindow />,
+        document.querySelector("#content")
+    );
+};
 
 
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
     const aboutButton = document.querySelector("#aboutButton");
+    const resourceButton = document.querySelector("#resourceButton");
 
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -175,6 +204,12 @@ const setup = (csrf) => {
     aboutButton.addEventListener("click", (e) => {
         e.preventDefault();
         createAboutWindow();
+        return false;
+    });
+
+    resourceButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createResourceWindow();
         return false;
     });
 

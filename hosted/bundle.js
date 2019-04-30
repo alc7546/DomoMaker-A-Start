@@ -272,7 +272,7 @@ var CharacterList = function CharacterList(props) {
             React.createElement(
                 "h3",
                 { className: "emptyCharacter" },
-                "No Characters yet"
+                "No Characters Yet"
             )
         );
     }
@@ -400,12 +400,55 @@ var CharacterList = function CharacterList(props) {
     );
 };
 
+// Dice Window
+
+var DiceWindow = function DiceWindow(props) {
+
+    var rollDice = function rollDice() {
+        var die = document.getElementById("result");
+        die.innerHTML = Math.floor(Math.random() * 20) + 1;
+    };
+    return React.createElement(
+        "div",
+        { id: "diceContainer", key: props.roll },
+        React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h3",
+                null,
+                "Roll the Dice!"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "This is a 20 sided dice. Click it for a random roll!"
+            )
+        ),
+        React.createElement(
+            "button",
+            null,
+            React.createElement("img", { id: "dice", src: "/assets/img/dice.png", alt: "die", onClick: function onClick() {
+                    return props.roll = rollDice();
+                } })
+        ),
+        React.createElement(
+            "h1",
+            { id: "result" },
+            "0"
+        )
+    );
+};
+
+// Create Characters
 var loadCharactersFromServer = function loadCharactersFromServer(csrf) {
     console.log("yeet");
     sendAjax('GET', '/getCharacters', null, function (data) {
         ReactDOM.render(React.createElement(CharacterList, { characters: data.characters, csrf: csrf }), document.querySelector("#characters"));
     });
 };
+
+// Create Windows for Render
 
 var createPasswordWindow = function createPasswordWindow(csrf) {
     ReactDOM.render(React.createElement(PassWordWindow, { csrf: csrf }), document.querySelector("#characterWrapper"));
@@ -415,9 +458,14 @@ var createUpgradeWindow = function createUpgradeWindow() {
     ReactDOM.render(React.createElement(UpgradeWindow, null), document.querySelector("#characterWrapper"));
 };
 
+var createDiceWindow = function createDiceWindow() {
+    ReactDOM.render(React.createElement(DiceWindow, { roll: 0 }), document.querySelector("#characterWrapper"));
+};
+
 var setup = function setup(csrf) {
     var passwordButton = document.querySelector("#passwordButton");
     var upgradeButton = document.querySelector("#upgradeButton");
+    var diceButton = document.querySelector("#diceButton");
 
     passwordButton.addEventListener("click", function (e) {
         e.preventDefault();
@@ -428,6 +476,12 @@ var setup = function setup(csrf) {
     upgradeButton.addEventListener("click", function (e) {
         e.preventDefault();
         createUpgradeWindow();
+        return false;
+    });
+
+    diceButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        createDiceWindow();
         return false;
     });
 

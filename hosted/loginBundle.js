@@ -60,7 +60,7 @@ var LoginWindow = function LoginWindow(props) {
                 null,
                 "Welcome traveler! Create new characters for your tabletop adventures!",
                 React.createElement("br", null),
-                "While this app still has a long way to go, you can begin creating characters with a moderate amount of stats and customization."
+                "This app is still on its own journey, but enjoy what it has to offer so far!"
             )
         ),
         React.createElement("label", { htmlFor: "username" }),
@@ -103,7 +103,7 @@ var SignupWindow = function SignupWindow(props) {
                 null,
                 "Welcome traveler! Create new characters for your tabletop adventures!",
                 React.createElement("br", null),
-                "While this app still has a long way to go, you can begin creating characters with a moderate amount of stats and customization."
+                "This app is still on its own journey, but enjoy what it has to offer so far!"
             )
         ),
         React.createElement("label", { htmlFor: "username" }),
@@ -145,14 +145,18 @@ var AboutWindow = function AboutWindow() {
             React.createElement(
                 "p",
                 null,
-                "I created this project as I have recently gotten into playing role-playing games and found the stat management among the most interesting aspects of the genre."
+                "I created this project as I have recently gotten into playing role-playing games and found the stat management among the most interesting aspects of the genre. ",
+                React.createElement("br", null),
+                "It has also gotten me interested in tabletop games, but I've yet to actually play those."
             ),
             React.createElement(
                 "p",
                 null,
                 "I decided to break down what I believed were common factors or attributes for a role-playing character.",
                 React.createElement("br", null),
-                "I then used MongoDB to store these values, allowing users to build up a list of their customized characters."
+                "I then used MongoDB to store these values, allowing users to build up a list of their customized characters.",
+                React.createElement("br", null),
+                "The project is built with React and Handlebars to handle updates of dynamic content."
             ),
             React.createElement(
                 "ul",
@@ -165,46 +169,94 @@ var AboutWindow = function AboutWindow() {
                 React.createElement(
                     "p",
                     null,
-                    "No project (of mine at least) is without some shortcomings. Due to some programming issues, time management, and hectic classes, I didn't accomplish all I had hoped.",
+                    "The final project still has some shortcomings. All of the basic functionality is present, but I missed out on the stretch goals of",
                     React.createElement("br", null),
-                    "I'll likely revisit this project for the third project, and accomplish some of these goals."
+                    "implenting custom templates. I also used pure CSS for styling and not a framework, which while it was fun to explore different tutorials, ",
+                    React.createElement("br", null),
+                    "the site itself is not responsive."
+                ),
+                React.createElement(
+                    "h4",
+                    null,
+                    "What I'd do with more time"
                 ),
                 React.createElement(
                     "li",
                     null,
-                    "Restyle the project further."
+                    "- Restyle the project further with a framework for responsve design."
                 ),
                 React.createElement(
                     "li",
                     null,
-                    "Implement custom template themes."
+                    "- Implement custom template themes."
                 ),
                 React.createElement(
                     "li",
                     null,
-                    "Allow for editing of the characters."
-                ),
-                React.createElement(
-                    "li",
-                    null,
-                    "Allow for deleting of characters."
+                    "- Hook up an email subscription list"
                 )
-            ),
+            )
+        )
+    );
+};
+
+var ResourcesWindow = function ResourcesWindow() {
+    return React.createElement(
+        "div",
+        { id: "wrapper" },
+        React.createElement(
+            "div",
+            { id: "sideContent" },
             React.createElement(
-                "h4",
+                "h2",
                 null,
                 "Resources Used"
             ),
             React.createElement(
                 "a",
                 { href: "https://codepen.io/madshaakansson/pen/iqDsG?editors=1100" },
-                "Text Transition CSS"
+                "Text Submission Movement - CSS"
             ),
             React.createElement("br", null),
             React.createElement(
                 "a",
                 { href: "https://freefrontend.com/css-button-hover-effects/" },
-                "Button/Border CSS"
+                "Form Button Border Animations - CSS"
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "a",
+                { href: "https://codepen.io/Emanuel_G/pen/YVJOZo" },
+                "Navbar Button Animations - CSS"
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "a",
+                { href: "https://fonts.googleapis.com/css?family=Lato" },
+                "Font Family Used: Lato"
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "a",
+                { href: "https://www.deviantart.com/turtlegirlman/art/d20-icon-de-la-Gartoon-60651092" },
+                "Main Dice Picture"
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "a",
+                { href: "https://www.imagenesmy.com/imagenes/dungeon-icon-3e.html" },
+                "Favicon Image"
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "a",
+                { href: "https://webiconspng.com/wp-content/uploads/2017/01/Red-Trash-Simple-Icon.png" },
+                "Red Trash Symbol"
+            ),
+            React.createElement(
+                "p",
+                null,
+                "The other icons were derived from a variety of free use icon sites or icon archives. Explicit credit can be provided if requested."
             )
         )
     );
@@ -222,10 +274,15 @@ var createAboutWindow = function createAboutWindow() {
     ReactDOM.render(React.createElement(AboutWindow, null), document.querySelector("#content"));
 };
 
+var createResourceWindow = function createResourceWindow() {
+    ReactDOM.render(React.createElement(ResourcesWindow, null), document.querySelector("#content"));
+};
+
 var setup = function setup(csrf) {
     var loginButton = document.querySelector("#loginButton");
     var signupButton = document.querySelector("#signupButton");
     var aboutButton = document.querySelector("#aboutButton");
+    var resourceButton = document.querySelector("#resourceButton");
 
     signupButton.addEventListener("click", function (e) {
         e.preventDefault();
@@ -242,6 +299,12 @@ var setup = function setup(csrf) {
     aboutButton.addEventListener("click", function (e) {
         e.preventDefault();
         createAboutWindow();
+        return false;
+    });
+
+    resourceButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        createResourceWindow();
         return false;
     });
 

@@ -48,6 +48,7 @@ const makeCharacter = (req, res) => {
       res.json({ redirect: '/maker' });
     }
   );
+  return false;
 };
 
 const getCharacters = (request, response) => {
@@ -64,9 +65,11 @@ const getCharacters = (request, response) => {
   });
 };
 
-const deleteCharacter = (req, res) => {
-  Character.CharacterModel.deleteOne({_id: req.body._id, owner: req.session.account._id});
-  
+const deleteCharacter = (req) => {
+  console.log('delete me');
+  console.log(req.body.name);
+  console.log(req.body._csrf);
+  Character.CharacterModel.find({ name: req.body.name }).remove().exec();
 };
 
 module.exports.makerPage = makerPage;

@@ -10,8 +10,10 @@ var handleCharacter = function handleCharacter(e) {
         return false;
     }
 
+    var form = document.querySelector("#characterForm");
+    var csrf = form.querySelector("#csrf").value;
     sendAjax('POST', $("#characterForm").attr("action"), $("#characterForm").serialize(), function () {
-        loadCharactersFromServer();
+        loadCharactersFromServer(csrf);
     });
 
     return false;
@@ -34,6 +36,17 @@ var handlePasswordChange = function handlePasswordChange(e) {
 
     sendAjax('POST', $("#passwordChangeForm").attr("action"), $("#passwordChangeForm").serialize(), redirect);
 
+    return false;
+};
+
+var handleDelete = function handleDelete(e, identifier) {
+    e.preventDefault();
+
+    $("#characterMessage").animate({ width: 'hide' }, 350);
+    console.log(identifier);
+    console.log(identifier._csrf);
+    sendAjax('POST', "/deleteCharacter", identifier, redirect);
+    loadCharactersFromServer(identifier._csrf);
     return false;
 };
 
@@ -119,7 +132,7 @@ var CharacterForm = function CharacterForm(props) {
             "Defense: "
         ),
         React.createElement("input", { id: "charDefense", type: "number", min: "0", name: "defense", placeholder: "Character Defense" }),
-        React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+        React.createElement("input", { type: "hidden", id: "csrf", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "makeCharacterSubmit", type: "submit", value: "Make Character" })
     );
 };
@@ -264,17 +277,21 @@ var CharacterList = function CharacterList(props) {
         );
     }
 
+    console.log(props.csrf);
     var characterNodes = props.characters.map(function (character) {
+        console.log(props.csrf);
+        character._csrf = props.csrf;
         return React.createElement(
             "div",
             { key: character._id, className: "character" },
-            React.createElement("img", { src: "/assets/img/character.png", alt: "character face", className: "characterFace" }),
+            React.createElement("img", { src: "/assets/img/character.png", alt: "character face", id: "characterFace" }),
             React.createElement(
                 "ul",
                 { id: "row1" },
                 React.createElement(
                     "li",
                     { className: "charName row1" },
+                    React.createElement("img", { id: "icon", src: "/assets/img/nameIcon.png" }),
                     "Name: ",
                     character.name,
                     " "
@@ -282,6 +299,7 @@ var CharacterList = function CharacterList(props) {
                 React.createElement(
                     "li",
                     { className: "charAge row1" },
+                    React.createElement("img", { id: "icon", src: "https://png.pngtree.com/svg/20170425/age_486205.png" }),
                     "Age: ",
                     character.age,
                     " "
@@ -289,24 +307,28 @@ var CharacterList = function CharacterList(props) {
                 React.createElement(
                     "li",
                     { className: "charLevel row1" },
+                    React.createElement("img", { id: "icon", src: "https://image.flaticon.com/icons/svg/66/66027.svg" }),
                     "Level: ",
                     character.level
                 ),
                 React.createElement(
                     "li",
                     { className: "charRace row1" },
+                    React.createElement("img", { id: "icon", src: "http://chittagongit.com/download/327283" }),
                     "Race: ",
                     character.race
                 ),
                 React.createElement(
                     "li",
                     { className: "charHealth row1" },
+                    React.createElement("img", { id: "icon", src: "https://freeiconshop.com/wp-content/uploads/edd/heart-outline.png" }),
                     "Health: ",
                     character.health
                 ),
                 React.createElement(
                     "li",
                     { className: "charArmor row1" },
+                    React.createElement("img", { id: "icon", src: "https://cdn4.iconfinder.com/data/icons/video-game-items-concepts/128/armor-helmet-spartan-512.png" }),
                     "Armor: ",
                     character.armor
                 )
@@ -317,46 +339,56 @@ var CharacterList = function CharacterList(props) {
                 React.createElement(
                     "li",
                     { className: "charGold" },
+                    React.createElement("img", { id: "icon", src: "https://png.pngtree.com/svg/20160706/278dec859e.png" }),
                     "Gold: ",
                     character.gold
                 ),
                 React.createElement(
                     "li",
                     { className: "charStrength" },
+                    React.createElement("img", { id: "icon", src: "https://png.pngtree.com/svg/20160921/ad9324c99d.svg" }),
                     "Strength: ",
                     character.strength
                 ),
                 React.createElement(
                     "li",
                     { className: "charAgility" },
+                    React.createElement("img", { id: "icon", src: "http://freeflaticons.com/wp-content/uploads/2014/09/runner-copy-1411788899k84gn.png" }),
                     "Agility: ",
                     character.agility
                 ),
                 React.createElement(
                     "li",
                     { className: "charWisdom " },
+                    React.createElement("img", { id: "icon", src: "https://image.flaticon.com/icons/svg/1092/1092305.svg" }),
                     "Wisdom: ",
                     character.wisdom
                 ),
                 React.createElement(
                     "li",
                     { className: "charEndurance " },
+                    React.createElement("img", { id: "icon", src: "https://www.shareicon.net/download/2016/09/27/836561_heart_512x512.png" }),
                     "Endurance: ",
                     character.endurance
                 ),
                 React.createElement(
                     "li",
                     { className: "charDefense " },
+                    React.createElement("img", { id: "icon", src: "http://icons.iconarchive.com/icons/icons8/ios7/256/Network-Shield-icon.png" }),
                     "Defense: ",
                     character.defense
                 )
             ),
             React.createElement(
-                "a",
-                { className: "upgradeButton", id: "starWars", href: "#", onClick: function onClick() {
-                        return sendAjax("POST", "/deleteCharacter");
-                    } },
-                "Delete"
+                "ul",
+                null,
+                React.createElement(
+                    "button",
+                    { id: "deleteButton", onClick: function onClick(e) {
+                            return handleDelete(e, character);
+                        } },
+                    React.createElement("img", { src: "/assets/img/trash.png", height: "50", width: "50" })
+                )
             )
         );
     });
@@ -368,9 +400,10 @@ var CharacterList = function CharacterList(props) {
     );
 };
 
-var loadCharactersFromServer = function loadCharactersFromServer() {
+var loadCharactersFromServer = function loadCharactersFromServer(csrf) {
+    console.log("yeet");
     sendAjax('GET', '/getCharacters', null, function (data) {
-        ReactDOM.render(React.createElement(CharacterList, { characters: data.characters }), document.querySelector("#characters"));
+        ReactDOM.render(React.createElement(CharacterList, { characters: data.characters, csrf: csrf }), document.querySelector("#characters"));
     });
 };
 
@@ -400,9 +433,9 @@ var setup = function setup(csrf) {
 
     ReactDOM.render(React.createElement(CharacterForm, { csrf: csrf }), document.querySelector("#makeCharacter"));
 
-    ReactDOM.render(React.createElement(CharacterList, { characters: [] }), document.querySelector("#characters"));
+    ReactDOM.render(React.createElement(CharacterList, { characters: [], csrf: csrf }), document.querySelector("#characters"));
 
-    loadCharactersFromServer();
+    loadCharactersFromServer(csrf);
 };
 
 var getToken = function getToken() {

@@ -1,13 +1,9 @@
-@font-face{
-    font-family: "D-DIN";
-    src: url('../fonts/din/D-DIN.woff2') format('woff2'),
-         url('../fonts/din/D-DIN.woff') format('woff'),
-         url('../fonts/din/D-DIN.ttf') format('truetype'),
-         url('../fonts/din/D-DIN.otf') format('opentype'),
-}
+@import url('https://fonts.googleapis.com/css?family=Abel|Lato|Source+Sans+Pro');
+
+
 
 body{
-    font-family: "Roboto", sans-serif;
+    font-family: "Lato", sans-serif;
     margin-top: 80px;
     padding:30px;
 }
@@ -24,6 +20,7 @@ header{
     align-items: center;
     padding-left: 20px;
     background-color:rgb(198, 241, 200);
+    z-index:99;
     .home{
         font-size: 1.5rem;
         color:black;
@@ -265,20 +262,44 @@ header{
         display: inline-block;
         
     }
-    img{
+    
+    #characterFace{
         width: 80px;
         height: 80px;
         float: left;
-        padding-right: 20px;
         margin-top:20px;
-    }
-    
+    } 
     .character{
         border: 2px solid rgb(68, 76, 72);
         border-radius: 5%;
         padding-right: 1.2rem;
         padding-left:1.2rem;
         margin-bottom: 1.2rem;
+        width:500px;
+        
+        ul{
+            li{
+                padding-bottom:10px;
+                #icon{
+                    width: 25px;
+                    height: auto;
+                    float: left;
+                    padding-right: 5px;
+                }
+            }
+            #deleteButton{
+                opacity: 0.85;
+                background: none;
+                border: none;
+                cursor: pointer;
+                position: relative;
+                left: 85%;
+                top: -10%;
+            }
+        }
+
+        
+        
     }
     
     

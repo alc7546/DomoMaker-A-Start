@@ -8,8 +8,10 @@ const handleCharacter = (e) => {
         return false;
     }
 
+    let form = document.querySelector("#characterForm");
+    let csrf = form.querySelector("#csrf").value
     sendAjax('POST', $("#characterForm").attr("action"), $("#characterForm").serialize(), function(){
-        loadCharactersFromServer();
+        loadCharactersFromServer(csrf);
     });
 
     return false;
@@ -34,6 +36,18 @@ const handlePasswordChange = (e) => {
 
     return false;
 };
+
+const handleDelete = (e, identifier) => {
+    e.preventDefault();
+
+    $("#characterMessage").animate({width:'hide'}, 350);
+    console.log(identifier);
+    console.log(identifier._csrf);
+    sendAjax('POST', "/deleteCharacter", identifier, redirect);
+    loadCharactersFromServer(identifier._csrf);
+    return false;
+
+}
 
 const CharacterForm = (props) => {
     return(
@@ -68,7 +82,7 @@ const CharacterForm = (props) => {
             <input id="charEndurance" type="number" min="0" name="endurance" placeholder="Character Endurance"/>
             <label htmlFor="defense">Defense: </label>
             <input id="charDefense" type="number" min="0" name="defense" placeholder="Character Defense"/>
-            <input type="hidden" name="_csrf" value={props.csrf} />
+            <input type="hidden" id="csrf" name="_csrf" value={props.csrf} />
             <input className="makeCharacterSubmit" type="submit" value="Make Character" />
         </form>
     );
@@ -145,30 +159,34 @@ const CharacterList = function(props){
         );
     }
 
-    
-
+    console.log(props.csrf);
     const characterNodes = props.characters.map(function(character) {
+        console.log(props.csrf);
+        character._csrf = props.csrf;
         return(
-            <div key={character._id} className="character">
-                <img src="/assets/img/character.png" alt="character face" className="characterFace"/>
-                <ul id="row1">
-                    <li className="charName row1">Name: {character.name} </li>
-                    <li className="charAge row1">Age: {character.age} </li>
-                    <li className="charLevel row1">Level: {character.level}</li>
-                    <li className="charRace row1">Race: {character.race}</li>
-                    <li className="charHealth row1">Health: {character.health}</li>
-                    <li className="charArmor row1">Armor: {character.armor}</li>
-                </ul>
-                <ul id="row2">
-                    <li className="charGold">Gold: {character.gold}</li>
-                    <li className="charStrength">Strength: {character.strength}</li>
-                    <li className="charAgility">Agility: {character.agility}</li>
-                    <li className="charWisdom ">Wisdom: {character.wisdom}</li>
-                    <li className="charEndurance ">Endurance: {character.endurance}</li>
-                    <li className="charDefense ">Defense: {character.defense}</li>
-                </ul>
-                <a className="upgradeButton" id="starWars" href="#" onClick={() => sendAjax("POST", "/deleteCharacter", )}>Delete</a>
-            </div>
+                <div key={character._id} className="character">
+                    <img src="/assets/img/character.png" alt="character face" id="characterFace"/>
+                    <ul id="row1">
+                        <li className="charName row1"><img id ="icon" src="/assets/img/nameIcon.png"></img>Name: {character.name} </li>
+                        <li className="charAge row1"><img id ="icon" src="https://png.pngtree.com/svg/20170425/age_486205.png"></img>Age: {character.age} </li>
+                        <li className="charLevel row1"><img id ="icon" src="https://image.flaticon.com/icons/svg/66/66027.svg"></img>Level: {character.level}</li>
+                        <li className="charRace row1"><img id ="icon" src="http://chittagongit.com/download/327283"></img>Race: {character.race}</li>
+                        <li className="charHealth row1"><img id ="icon" src="https://freeiconshop.com/wp-content/uploads/edd/heart-outline.png"></img>Health: {character.health}</li>
+                        <li className="charArmor row1"><img id ="icon" src="https://cdn4.iconfinder.com/data/icons/video-game-items-concepts/128/armor-helmet-spartan-512.png"></img>Armor: {character.armor}</li>
+                    </ul>
+                    <ul id="row2">
+                        <li className="charGold"><img id ="icon" src="https://png.pngtree.com/svg/20160706/278dec859e.png"></img>Gold: {character.gold}</li>
+                        <li className="charStrength"><img id ="icon" src="https://png.pngtree.com/svg/20160921/ad9324c99d.svg"></img>Strength: {character.strength}</li>
+                        <li className="charAgility"><img id ="icon" src="http://freeflaticons.com/wp-content/uploads/2014/09/runner-copy-1411788899k84gn.png"></img>Agility: {character.agility}</li>
+                        <li className="charWisdom "><img id ="icon" src="https://image.flaticon.com/icons/svg/1092/1092305.svg"></img>Wisdom: {character.wisdom}</li>
+                        <li className="charEndurance "><img id ="icon" src="https://www.shareicon.net/download/2016/09/27/836561_heart_512x512.png"></img>Endurance: {character.endurance}</li>
+                        <li className="charDefense "><img id ="icon" src="http://icons.iconarchive.com/icons/icons8/ios7/256/Network-Shield-icon.png"></img>Defense: {character.defense}</li>
+                    </ul>
+                    <ul>
+                    <button id ="deleteButton" onClick={(e) => handleDelete(e, character)}><img src="/assets/img/trash.png" height = "50" width="50"></img></button>
+                    </ul>
+                    
+                </div>
         );
     });
 
@@ -179,10 +197,11 @@ const CharacterList = function(props){
     );
 };
 
-const loadCharactersFromServer = () => {
+const loadCharactersFromServer = (csrf) => {
+    console.log("yeet");
     sendAjax('GET', '/getCharacters', null, (data) => {
         ReactDOM.render(
-            <CharacterList characters={data.characters} />,
+            <CharacterList characters={data.characters} csrf={csrf} />,
             document.querySelector("#characters")
         );
     });
@@ -223,11 +242,11 @@ const setup = function(csrf) {
     );
 
     ReactDOM.render(
-        <CharacterList characters={[]} />,
+        <CharacterList characters={[]} csrf={csrf} />,
         document.querySelector("#characters")
     );
 
-    loadCharactersFromServer();
+    loadCharactersFromServer(csrf);
 };
 
 const getToken = () => { 

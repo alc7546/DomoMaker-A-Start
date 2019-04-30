@@ -68,8 +68,9 @@ const getCharacters = (request, response) => {
 const deleteCharacter = (req) => {
   console.log('delete me');
   console.log(req.body.name);
-  console.log(req.body._csrf);
-  Character.CharacterModel.find({ name: req.body.name }).remove().exec();
+  console.log(req.body._id);
+  console.log(req.session.account._id);
+  Character.CharacterModel.find({ _id: req.body._id, owner: req.session.account._id }).remove().exec();
 };
 
 module.exports.makerPage = makerPage;
